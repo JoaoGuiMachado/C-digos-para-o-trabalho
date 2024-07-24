@@ -151,7 +151,7 @@ while True:
                                             celula = sheet.cell(rowReserva, column)
                                             print(celula.value)
                                             rowReserva = rowReserva + 1
-                                            #TIRAR NONE
+                                            #TIRAR NONE, ainda aparece ele
                                 #Criar função para realocar os itens na planilha da seleção amostral
                             if valor_string == "SERVIÇO DE TERCEIROS" or valor_string == "SERVIÇOS DE TERCEIROS":
                                 print(celula.value)
@@ -178,4 +178,3 @@ while True:
 #####################################################################
         break
 
-    
