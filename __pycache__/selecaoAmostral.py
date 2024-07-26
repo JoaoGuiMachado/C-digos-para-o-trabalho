@@ -80,17 +80,20 @@ while True:
         arquivoDeOrigem = values_principal["arquivo_Origem"]
         arquivoDeDestino = values_principal["arquivo_Destino"]
 
-        for nomeSemAspas in range(len(arquivoDeOrigem)): ## Tirar aspas da cópia de local
+        for nomeSemAspasOrigem in range(len(arquivoDeOrigem)): ## Tirar aspas da cópia de local
             arquivoDeOrigem = arquivoDeOrigem.replace('"', "")
+        
+        for nomeSemAspasDestino in range(len(arquivoDeDestino)): ## Tirar aspas da cópia de local
+            arquivoDeDestino = arquivoDeDestino.replace('"', "")
 
 ####################################################################
         ##Colocar uma função de pesquisa para PE
 
-        workbook = openpyxl.load_workbook(filename=arquivoDeOrigem)
+        workbookOrigem = openpyxl.load_workbook(filename=arquivoDeOrigem)
 
         janela_escolha = [
                     [sg.Text("Qual seria a aba?")],
-                    [sg.Text(workbook.sheetnames)],
+                    [sg.Text(workbookOrigem.sheetnames)],
                     [sg.InputText(key='escolha_Aba')],
                     [sg.Button('Usar esta aba!')], [sg.Button('Cancelar')]
                 ]
@@ -109,12 +112,14 @@ while True:
                 
                 abaEscolhida = values_escolha['escolha_Aba']
 
-                sheet = workbook[abaEscolhida] 
+                sheet = workbookOrigem[abaEscolhida] 
 
                 for row in range(1, 5001):
                     for column in range(1, 31):
                         celula = sheet.cell(row, column) ##Escolhe célula específica para modificar
                         #celula.value = 'Hello World!' ##Adiciona um valor para a célula
+                        
+                        #sheet = workbookOrigem[abaEscolhida]
                         
                         if celula.value == "":
                             celula.value = 0
@@ -139,7 +144,6 @@ while True:
                                         rowReserva = row
                                         rowParaLoop = row
 
-                                        #Loop dando problema (Ver o que é que está dando errado)
                                         while celula.value != None:
                                             celula = sheet.cell(rowParaLoop, column)
                                             rowParaLoop = rowParaLoop + 1
@@ -152,34 +156,64 @@ while True:
                                         for i in range(linhasParaLer):
                                             celula = sheet.cell(rowCaracter, columnCaracter)
                                             valor = str(celula.value) 
-                                            quatro_caracteres = valor[:4]  # Ler os primeiros 4 caracteres
+                                            quatro_caracteres = valor[:4]  # Lê os primeiros 4 caracteres
                                             rowCaracter = rowCaracter + 1
 
-                                            if quatro_caracteres != '=SUM' or quatro_caracteres != '=SOM':
+                                            if quatro_caracteres != '=SUM': #garante que o não pegue a soma
                                                 celula = sheet.cell(rowReserva, column)
                                                 print(celula.value)
                                                 rowReserva = rowReserva + 1
-                                                #TIRAR NONE, ainda aparece ele
+                                #Procura de itens concluída
                                 #Criar função para realocar os itens na planilha da seleção amostral
+                            
+                            #workbookDestino = openpyxl.load_workbook(filename=arquivoDeDestino) #vai até o arquivo destino (tem que voltar depois)
+                            
+                            #sheet = workbookDestino['5.2']
+                            #celula = sheet.cell(13, 4)
+                            #print(celula.value)
+
+
                             if valor_string == "SERVIÇO DE TERCEIROS" or valor_string == "SERVIÇOS DE TERCEIROS":
+                                
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeOrigem)
                                 print(celula.value)
                                 print(row, column)
+                                #Colar código de procura
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeDestino)
 
                             if valor_string == "MATERIAL PERMANENTE" or valor_string == "MATERIAL E EQUIPAMENTO":
+                                
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeOrigem)
                                 print(celula.value)
                                 print(row, column)
+                                #Colar código de procura
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeDestino)
+
 
                             if valor_string == "MATERIAL DE CONSUMO":
+                               
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeOrigem)
                                 print(celula.value)
                                 print(row, column)
+                                #Colar código de procura
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeDestino)
+
 
                             if valor_string == "VIAGENS E DIARIAS" or valor_string == "VIAGENS E DIÁRIAS":
+                                
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeOrigem)
                                 print(celula.value)
                                 print(row, column)
+                                #Colar código de procura
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeDestino)
 
                             if valor_string == "OUTROS":
+                                
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeOrigem)
                                 print(celula.value)
                                 print(row, column)
+                                #Colar código de procura
+                                #workbook = openpyxl.load_workbook(filename=arquivoDeDestino)
 
 #                workbook.save(arquivoDeOrigem) ##Salva planiha IMPORTANTE
 
