@@ -132,7 +132,7 @@ while True:
                                 #pega colunas não vazias na parte superior e já arruma na posição com os itens a baixo
                                 for column in range(1, 31):
                                     celula = sheet.cell(row, column)
-                                    linhasParaLer = 0
+                                    linhasParaLer = -1 #É -1 pois tem que levar em consideração que a última linha é desnecessária
 
                                     if celula.value != None:
                                         celula = sheet.cell(row, column)
@@ -146,12 +146,20 @@ while True:
                                             linhasParaLer = linhasParaLer + 1
                                         
                                         i = 0
+                                        rowCaracter = row
+                                        columnCaracter = column
 
                                         for i in range(linhasParaLer):
-                                            celula = sheet.cell(rowReserva, column)
-                                            print(celula.value)
-                                            rowReserva = rowReserva + 1
-                                            #TIRAR NONE, ainda aparece ele. ACHAR FORMA DE TIRAR
+                                            celula = sheet.cell(rowCaracter, columnCaracter)
+                                            valor = str(celula.value) 
+                                            quatro_caracteres = valor[:4]  # Ler os primeiros 4 caracteres
+                                            rowCaracter = rowCaracter + 1
+
+                                            if quatro_caracteres != '=SUM' or quatro_caracteres != '=SOM':
+                                                celula = sheet.cell(rowReserva, column)
+                                                print(celula.value)
+                                                rowReserva = rowReserva + 1
+                                                #TIRAR NONE, ainda aparece ele
                                 #Criar função para realocar os itens na planilha da seleção amostral
                             if valor_string == "SERVIÇO DE TERCEIROS" or valor_string == "SERVIÇOS DE TERCEIROS":
                                 print(celula.value)
