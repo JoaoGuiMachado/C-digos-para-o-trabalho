@@ -90,6 +90,7 @@ while True:
         ##Colocar uma função de pesquisa para PE
 
         workbookOrigem = openpyxl.load_workbook(filename=arquivoDeOrigem)
+        workbookDestino = openpyxl.load_workbook(filename=arquivoDeDestino)
 
         janela_escolha = [
                     [sg.Text("Qual seria a aba?")],
@@ -161,8 +162,11 @@ while True:
 
                                             if quatro_caracteres != '=SUM': #garante que o não pegue a soma
                                                 celula = sheet.cell(rowReserva, column)
+                                                workbookDestino.active
+                                                #Lógica de alocação (fazer sheet_destino = sheet_destino)
                                                 print(celula.value)
                                                 rowReserva = rowReserva + 1
+                                                workbookOrigem.active
                                 #Procura de itens concluída
                                 #Criar função para realocar os itens na planilha da seleção amostral
                             
@@ -220,4 +224,3 @@ while True:
 #####################################################################
         break
 
-#mesclando

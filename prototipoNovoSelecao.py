@@ -41,16 +41,22 @@ def ler_dados_origem(sheet):
                     dados.append((valor_string, row, column))
     return dados
 
-# Função para inserir dados na planilha de destino
+# Função para inserir dados na planilha de destino###############################################
 def inserir_dados_destino(sheet, dados):
     dados.sort(key=lambda x: x[0])
-    row_index = 1
-    for valor_string, row, column in dados:
-        sheet.cell(row=row_index, column=1, value=valor_string)
-        sheet.cell(row=row_index, column=2, value=row)
-        sheet.cell(row=row_index, column=3, value=column)
-        row_index += 1
-
+    row_index = 13
+    for valor_string in dados:
+        for column in range(1, 12):
+            #procurar as linha e inserir
+            sheet.cell(row_index, column=4, value=valor_string)
+            sheet.cell(row_index, column=6, value=sheet.cell(row_index, column).value)
+            sheet.cell(row_index, column=7, value=sheet.cell(row_index, column).value)
+            sheet.cell(row_index, column=8, value=sheet.cell(row_index, column).value)
+            sheet.cell(row_index, column=9, value=sheet.cell(row_index, column).value)
+            sheet.cell(row_index, column=10, value=sheet.cell(row_index, column).value)
+            sheet.cell(row_index, column=11, value=sheet.cell(row_index, column).value)
+            row_index += 1
+##################################################################################################
 def main():
     janela_principal = [  
         [sg.Text("Qual seria o nome do arquivo origem? (coloque o caminho)")],
@@ -139,10 +145,9 @@ def main():
 
                     dados = ler_dados_origem(sheet)
 
-                    # Criar e preencher um novo workbook para o destino
-                    workbookDestino = openpyxl.Workbook()
-                    sheet_destino = workbookDestino.active
-                    sheet_destino.title = "Dados Ordenados"
+                    # Entra e preenche um workbook de destino
+                    workbookDestino = openpyxl.load_workbook(arquivoDeDestino)
+                    sheet_destino = workbookDestino
 
                     inserir_dados_destino(sheet_destino, dados)
 
